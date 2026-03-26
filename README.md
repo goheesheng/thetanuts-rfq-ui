@@ -27,6 +27,12 @@ Developer-friendly starter app for Thetanuts OptionFactory RFQ lifecycle on Base
 4. Add new hooks in `src/hooks/` for additional features
 5. All contract addresses come from the SDK's chain config — no hardcoded addresses to update
 
+## Screenshots
+
+![Home](/public/home.png)
+![Orderbook](/public/orderbook.png)
+![RFQ](/public/rfq.png)
+
 ## Key Files
 - `src/lib/rfqUtils.ts` — RFQ calculations (numContracts, reserve price, stage detection)
 - `src/lib/pnlUtils.ts` — P&L formulas for all option types
