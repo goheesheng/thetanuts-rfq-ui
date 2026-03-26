@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/* Terminal theme */
+@theme {
+  --font-sans: var(--font-jb-mono), 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --font-mono: var(--font-jb-mono), 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  --color-surface: #0a0a0a;
+  --color-surface-hover: #161616;
+  --color-canvas: #000000;
+  --color-input-bg: #0a0a0a;
+  --color-chart-bg: #050505;
+
+  --color-border: #3a3a3a;
+  --color-border-subtle: #2a2a2a;
+  --color-border-emphasis: #4a4a4a;
+
+  --color-text-primary: #e8e8e8;
+  --color-text-secondary: #999;
+  --color-text-tertiary: #666;
+  --color-text-link: #5f9ea0;
+
+  --color-accent-green: #4ec968;
+  --color-accent-red: #e05555;
+  --color-accent-blue: #5f9ea0;
+  --color-accent-orange: #d4923a;
+}
+
+/* Light mode — still terminal, just inverted slightly */
+.light {
+  --color-surface: #e8e8e0;
+  --color-surface-hover: #ddddd4;
+  --color-canvas: #e8e8e0;
+  --color-input-bg: #f0f0e8;
+  --color-chart-bg: #e0e0d8;
+
+  --color-border: #a8a898;
+  --color-border-subtle: #c0c0b0;
+  --color-border-emphasis: #909080;
+
+  --color-text-primary: #111;
+  --color-text-secondary: #444;
+  --color-text-tertiary: #666;
+  --color-text-link: #1a5658;
+
+  --color-accent-green: #1a7a3e;
+  --color-accent-red: #a82020;
+  --color-accent-blue: #1a5658;
+  --color-accent-orange: #8a5510;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+}
+
+/* All elements monospace, no rounding */
+* {
+  border-radius: 0 !important;
+}
+
+/* Inputs */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Skeleton animation */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+}
+
+.skeleton {
+  background-color: var(--color-border);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Slider — terminal style */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--color-border-emphasis);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--color-accent-green);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--color-accent-green);
+  cursor: pointer;
+  border: none;
+}
+
+/* Scrollbar — minimal */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-emphasis);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Toast animations */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* Cursor blink for loading states */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Reusable component styles ── */
+
+/* Section header label: "-- section --" */
+.section-label {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+
+/* Selected row in selectable lists/tables */
+.row-selected {
+  background-color: color-mix(in srgb, var(--color-accent-green) 20%, transparent);
+  border-left: 2px solid var(--color-accent-green);
+  color: var(--color-text-primary);
+}
+
+.row-selected .row-selected-text {
+  color: var(--color-accent-green);
+}
+
+/* Selectable row — default/hover state */
+.row-selectable {
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.row-selectable:hover {
+  background-color: var(--color-surface-hover);
+}
+
+/* Option type badges */
+.badge {
+  font-size: 12px;
+  padding: 1px 6px;
+}
+
+.badge-call {
+  background-color: color-mix(in srgb, var(--color-accent-green) 20%, transparent);
+  color: var(--color-accent-green);
+}
+
+.badge-put {
+  background-color: color-mix(in srgb, var(--color-accent-red) 20%, transparent);
+  color: var(--color-accent-red);
+}
+
+.badge-range {
+  background-color: color-mix(in srgb, var(--color-accent-orange) 20%, transparent);
+  color: var(--color-accent-orange);
+}
+
+/* Filter button base */
+.filter-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  transition: color 0.1s;
+}
+
+.filter-btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.filter-btn-active {
+  border-color: var(--color-accent-blue);
+  color: var(--color-accent-blue);
+}
+
+.filter-btn-call {
+  border-color: var(--color-accent-green);
+  color: var(--color-accent-green);
+}
+
+.filter-btn-put {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
+.filter-btn-range {
+  border-color: var(--color-accent-orange);
+  color: var(--color-accent-orange);
+}
+
+/* Table header cell */
+.th-cell {
+  padding: 6px 12px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* PnL coloring */
+.pnl-positive { color: var(--color-accent-green); }
+.pnl-negative { color: var(--color-accent-red); }
